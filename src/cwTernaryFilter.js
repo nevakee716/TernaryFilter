@@ -154,7 +154,7 @@
         var nodeToDelete,i,child,associationNode,nextChild,oppositUuidList,isEmpty;
         nodeToDelete = [];
         oppositUuidList = child.iProperties['opposituuidlist'];
-        if(oppositUuidList !== "" && oppositUuidList !== null) {
+        if(oppositUuidList !== "" && oppositUuidList !== undefined) {
             oppositUuidList = oppositUuidList.split("\n");
         } else {
             return false;

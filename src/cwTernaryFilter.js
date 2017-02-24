@@ -70,44 +70,17 @@
             cwApi.cwLayouts.CwLayout.prototype.drawAssociations.call(this,output, associationTitleText, object);
         }
     };
-
-
-    cwTernaryFilter.prototype.analyzeStructureJson = function (child,level,options) {
-        var nextChild = null;
-        var tempInfo = {};   
-        var info = {};
-        info.noNodeFiler = true;
-        info.depth = 0;
-
-        for (var associationNode in child.associations) {
-            if (child.associations.hasOwnProperty(associationNode)) {
-                for (var i = 0; i < child.associations[associationNode].length; i += 1) {
-                    nextChild = child.associations[associationNode][i];
-                    tempInfo = this.analyzeStructureJson(nextChild,level + 1,options);
-                    tempInfo.depth += 1; 
-                    if(tempInfo.depth > info.depth) {
-                        info.depth = tempInfo.depth;
-                    }
-                    if(!tempInfo.noNodeFiler) {
-                        info.noNodeFiler = tempInfo.noNodeFiler;
-                    }
-                }
-                if (this.NodesID.hasOwnProperty(associationNode)) {
-                    info.noNodeFiler = false;
-                }
-            }
+    
+    // obligatoire appeler par le system
+    cwTernaryFilter.prototype.drawOneMethod = function (output, object) {
+        if(cwApi.cwLayouts[this.replaceLayout].prototype.drawOneMethod) {
+            cwApi.cwLayouts[this.replaceLayout].prototype.drawOneMethod.call(this,output, object);
+        } else  if(cwApi.cwLayouts[this.replaceLayout].drawOne) { //layoutList
+            cwApi.cwLayouts[this.replaceLayout].drawOne.call(this,output, object);
         }
-        if(options !== false) {
-            child.depth = info.depth;
-            child.level = level;
-        }
-        return info;
     };
 
-    cwTernaryFilter.prototype.applyJavaScript = function () {
 
-    };
-      
 
 
     cwTernaryFilter.prototype.FilterObject = function(object) {

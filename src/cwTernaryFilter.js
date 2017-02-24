@@ -7,9 +7,9 @@
     var cwTernaryFilter = function(options, viewSchema) {
         var error;
 
-
+        cwApi.extend(this, cwApi.cwLayouts.CwLayout, options, viewSchema);      
         if(options.CustomOptions.hasOwnProperty('replace-layout')) {
-
+            this.CreateOtherOptions(options.CustomOptions['other-options']);
             this.replaceLayout = options.CustomOptions['replace-layout'];
             this.lvl0Policy = options.CustomOptions['Hide-Empty-lvl-0'];
             this.lvl1Policy = options.CustomOptions['Hide-Empty-lvl-1'];       
@@ -19,11 +19,12 @@
             //this.NodesID = {};
             //this.createObjectNodes(true,this.options.CustomOptions['filter-in']);
             //this.createObjectNodes(false,this.options.CustomOptions['filter-out']);           
+            
 
             cwApi.registerLayoutForJSActions(this);
             this.viewSchema = viewSchema; 
 
-            this.CreateOtherOptions(this.options.CustomOptions['other-options']);
+            
         } else {
             error = 'Cannot find replace-layout';
             cwAPI.Log.Error(error);   
@@ -42,7 +43,7 @@
 
             for (var i = 0; i < optionList.length; i += 1) {
                 if(optionList[i] !== "") {
-                    var optionSplit = optionList[i].split(":");
+                    var optionSplit = optionList[i].split(";");
                     if(optionSplit[0] && optionSplit[1] && optionSplit[2] && optionSplit[2] === '1') {
                         if(optionSplit[1] === "true") {
                             this.options.CustomOptions[optionSplit[0]] = true;  

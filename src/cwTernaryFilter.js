@@ -63,6 +63,10 @@
 
     // obligatoire appeler par le system
     cwTernaryFilter.prototype.drawAssociations = function (output, associationTitleText, object) {
+        if(this.options.CustomOptions['ObjectPageContextualFilter'] === true){
+            this.getObjectPageID();
+        }
+        
         this.FilterObject(object);
         if(cwApi.cwLayouts[this.replaceLayout].prototype.drawAssociations) {
             cwApi.cwLayouts[this.replaceLayout].prototype.drawAssociations.call(this,output, associationTitleText, object);
@@ -80,7 +84,15 @@
         }
     };
 
-
+    // obligatoire appeler par le system
+    cwTernaryFilter.prototype.getObjectPageID = function () {
+        var url = cwAPI.getURLHash();
+        var myRegexp = /cwid=([0-9]\w)/;
+        var match = myRegexp.exec(url);
+        if(match) {
+            this.ObjectPageID = match[1];
+        }
+    };
 
 
     cwTernaryFilter.prototype.FilterObject = function(object) {
@@ -135,11 +147,12 @@
         }
         
         isEmpty = false;
+
         for (associationNode in child.associations) {
             if (child.associations.hasOwnProperty(associationNode)) {
                 for (i = 0; i < child.associations[associationNode].length; i += 1) {
                     nextChild = child.associations[associationNode][i];
-                    if(oppositUuidList.indexOf(nextChild.properties.uniqueidentifier) === -1) {
+                    if(oppositUuidList.indexOf(nextChild.properties.uniqueidentifier) === -1 || (this.ObjectPageID && nextChild.object_id != this.ObjectPageID)) {
                         nodeToDelete.push(i);
                     } 
                 }

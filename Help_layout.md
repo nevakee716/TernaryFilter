@@ -2,10 +2,11 @@
 
 | Name             | Status  | Stable | Work but need more test | Nightly | Updated by        |
 |------------------|---------|--------|-------------------------|---------|-------------------|
-| Ternary Filter   | Version | x      | 1.0                     | 1.x     | Mathias PFAUWADEL |
+| Ternary Filter   | Version | x      | 1.1                     | 1.x     | Mathias PFAUWADEL |
 
 ## Patch Notes
 
+1.1 : Adding Option for contextual ObjectPage Filter
 1.0 : 1st version working
 
 ## Description:
@@ -47,6 +48,10 @@ Hide the level 0 objects of the ternary if they don't have ternary
 
 ### Hide Empty lvl 1 : 
 Hide the level 1 objects of the ternary if they don't have ternary
+
+### ObjectPageContextualFilter : 
+This will filter the last level of the Ternary to allow only the one of the ObjectPage
+
 
 ## Configuration
 

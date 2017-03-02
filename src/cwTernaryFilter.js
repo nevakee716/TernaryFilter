@@ -87,7 +87,7 @@
     // obligatoire appeler par le system
     cwTernaryFilter.prototype.getObjectPageID = function () {
         var url = cwAPI.getURLHash();
-        var myRegexp = /cwid=([0-9]\w)/;
+        var myRegexp = /cwid=([0-9])*/;
         var match = myRegexp.exec(url);
         if(match) {
             this.ObjectPageID = match[1];

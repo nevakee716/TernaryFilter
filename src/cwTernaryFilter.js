@@ -16,9 +16,7 @@
 
 
             cwApi.extend(this, cwApi.cwLayouts[this.replaceLayout], options, viewSchema);
-            //this.NodesID = {};
-            //this.createObjectNodes(true,this.options.CustomOptions['filter-in']);
-            //this.createObjectNodes(false,this.options.CustomOptions['filter-out']);           
+        
             
 
             cwApi.registerLayoutForJSActions(this);
@@ -90,7 +88,7 @@
         var myRegexp = /cwid=([0-9])*/;
         var match = myRegexp.exec(url);
         if(match) {
-            this.ObjectPageID = match[1];
+            this.ObjectPageID = match[0].replace("cwid=","");
         }
     };
 
@@ -101,7 +99,7 @@
         child = object.associations[this.mmNode.NodeID];
         nodeToDelete = [];
         for (i = 0; i < child.length; i += 1) {
-            if(this.lvl0Policy && !this.FilterTernaryLvl0(child[i])){
+            if(!this.FilterTernaryLvl0(child[i]) && this.lvl0Policy){
                 nodeToDelete.push(i);
             }
  
